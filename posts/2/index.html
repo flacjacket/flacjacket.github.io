@@ -1,0 +1,709 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Sean Vig's 2011 GSOC Project</title>
+  <meta name="author" content="Sean Vig">
+
+  
+  <meta name="description" content="This last week, I have made progress on my project working on laying the base
+work for the spin states and in reimplementing logic in the cg_simp &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://flacjacket.github.io/posts/2">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Sean Vig's 2011 GSOC Project" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<!--- MathJax Configuration -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'textarea', 'pre', 'code']
+    },
+    messageStyle: "none",
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Sean Vig's 2011 GSOC Project</a></h1>
+  
+    <h2>Developing Wigner-3nj Symbols in SymPy</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:flacjacket.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/02/continuing-gsoc-work/">Continuing GSoC Work</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-02T12:27:00-05:00" pubdate data-updated="true">Jul 2<sup>nd</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This last week, I have made progress on my project working on laying the base
+work for the spin states and in reimplementing logic in the <code>cg_simp</code> method
+for Clebsch-Gordan coefficients.</p>
+
+<p>First, I have started the work on the implementation of coupled/uncoupled spin
+states. Currently, this is implemented by adding a <code>coupled</code> property to the
+spin states. This can be set to True for coupled, False for uncoupled or left
+as None for other states. As this evolves, I will move to having uncoupled
+product states be represented by a TensorProduct of two spin states. The next
+key will be establishing represent and rewrite logic for these spin states.
+Part of this will be figuring out how exactly these methods will work and what
+they will return. Namely, the represent method, noting that when representing
+an uncoupled state as a coupled state, it returns states with multiple j
+values, which under the current logic, would return matrices of different
+dimension. Also, we will have to determine what represent will do to uncoupled
+tensor product spin states. This next week, I will likely rebase this branch
+against the CG branch so I can start using the Clebsch-Gordan coefficients to
+implement these functions as the CG pull is finalized.</p>
+
+<p>With the Clebsch-Gordan coefficients, this last week I was able to get the
+simplification of symbolic Sum objects working. I did this using the pattern
+matching built into sympy with Wild and .match. The final step with this should
+be to rework the logic of <code>_cg_simp_add</code> to make it easier to add in additional
+symmetries.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/06/25/transitioning-to-spin-states/">Transitioning to Spin States</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-25T04:18:00-05:00" pubdate data-updated="true">Jun 25<sup>th</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This last week, the first thing that was taken care of was finishing the x/y/z
+spin basis representation. Having fixed the Wigner small d-function in the
+Rotation class, the tests for this were put into the pull request and the pull
+was merged into the sympy master, making this my first pull request since
+starting GSoC. There is still some changes that will come for the Rotation
+class, namely the creation of a symbolic WignerD class which is returned by the
+current Rotation.D and Rotation.d functions, but that will be dealt with in a
+later pull request.</p>
+
+<p>With the x/y/z basis stuff finally out of the way, I moved back to getting the
+Glebsch-Gordan coefficient/Wigner-3j symbols to a state where they can be
+pulled. Having fallen behind in getting the CG coefficient simplification to a
+suitable state and with the work on the x/y/z spin basis pushing the timeline
+back even further, the current goal is to merge what I have so far and move on
+to the coupled spin states. What I have so far is the classes for the Wigner-3j
+symbols and the Clebsch-Gordan coefficients which can be manipulated
+symbolically and evaluated, and a very rough version of the cg_simp method.
+Currently, this method can handle 3 numerical simplification, however the code
+is still messy and having more cases would be ideal. That said, in an effort to
+make sure the key parts of this GSoC project are covered, I&rsquo;ll be moving into
+writing the coupled spin states.</p>
+
+<p>For the spin states portion of this project, I will develop a means of writing
+coupled and uncoupled spin states. The uncoupled product basis states will be
+written using the TensorProduct, which is in the current quantum module; each
+of the states in the tensor product will be states as they are currently
+implemented. To represent coupled basis spin states, the current spin states
+will be modified to included a coupled parameter. This value stores the J_i&rsquo;s
+of the spin spaces which are being coupled. In addition to the spin states
+being implemented, methods will be written to utilize the CG coefficients
+mentioned earlier to go between coupled and uncoupled basis representation.
+Look for more next week as this code is fleshed out.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/06/18/more-cg-simplification-and-wrapping-up/">More CG Simplification and Wrapping Up X/y/z Spin Bases</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-18T10:17:00-05:00" pubdate data-updated="true">Jun 18<sup>th</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>For the first part of this last week, I continued on my work to get sums of
+Clebsch-Gordan coefficients to simplify. Using the same general logic that I
+outlined in the last blog entry, besides general cleaning up of the code, most
+of the work at the beginning of the week was spent on trying to develop a
+function that could check an expression for CG coefficients matching a set of
+conditions.</p>
+
+<p>The rationale behind trying to write such a method is that it would make it
+much easier to identify the times where symmetries could be utilized. With
+such a method, the process of checking for CG coefficients could be done in a
+single function and the logic for implementing CG symmetries could be handled
+in this one function. The current method uses lists of tuples to specify the
+conditions on CG coefficients. For example, if the j1 value of a CG coefficient
+needed to be =0, you could pass the tuple (&ldquo;j1&rdquo;,0), or if the m1 and m3 values
+match (&ldquo;m1&rdquo;,&ldquo;m3&rdquo;). All the conditions for each CG coefficient are combined into
+a single tuple. The current snag with simplifications of sums of products of CG
+coefficients. For example:
+$$ \sum_{\alpha,\beta} C_{\alpha\beta}^{c\gamma} C_{\alpha\beta}^{c&#8217;\gamma&#8217;}
+= \delta_{cc&#8217;} \delta_{\gamma\gamma&#8217;} $$</p>
+
+<p>While the current method would be able to check for specific values on the CG
+coefficients, I have yet to come up with a good way to check that the m1 and m2
+values are the same when they can take any value, as in this example. As it
+stands, this code still seems like quite a hack and will need some work before
+it is good to go.</p>
+
+<p>What is left with this part of the project is:</p>
+
+<ul>
+<li>Getting simplification to work with sums of products of terms (as in the example above)</li>
+<li>Applying CG symmetries to perform simplifications</li>
+<li>Simplification of symbolic CG sums</li>
+<li>Fixing up the printing of CG terms</li>
+<li>Final testing/documentation</li>
+</ul>
+
+
+<p>This part of the project has unfortunately fallen behind the preliminary
+schedule by a bit, as it was due to be finished up last week. I&rsquo;ll outline what
+I&rsquo;m currently working on finish up next, but hopefully I can finish the CG
+stuff ASAP so I can move on to working on the spin stuff which is the true meat
+of the project and try to get back on schedule.</p>
+
+<p>After meeting with my project mentor, Ondrej, on Wednesday, it was decided that
+the focus would shift to finishing up the work I&rsquo;d started on x/y/z spin bases
+and representation of spin states that I&rsquo;d started before GSoC had officially
+started.</p>
+
+<p>The first order of business was identifying an error in the Wigner small-d
+function, which is used extensively in the changing of spin bases. With Ondrej
+noting that the small-d function was defined only on a small interval and then
+me discovering the bug in the Rotation.d method, we were able to address this.
+However, no sooner had this been done than Ondrej is able to work out a better
+equation for the small-d function, which will likely replace the current
+implementation.</p>
+
+<p>Other than this, most of the work this week on the x/y/z basis representation
+was in documentation, testing and generally cleaning up the code to be pulled.
+The current pull request (my first work to be submitted since the start of
+GSoC) is still open <a href="https://github.com/sympy/sympy/pull/431">here</a>.  While
+this pull integrates the current work on basis representation, after this pull
+there is still some work that will need to be done testing both the Wigner
+small-d and the D functions, for both symbolic and numerical values, and
+ensuring they return the correct results. Because the representation code
+relies so heavily on these functions, it is imperative that these functions
+evaluate properly. Once these are fully tested, there will also likely need to
+be more tests to ensure all the representation code returns the right values
+for as many odd cases as would be necessary to test. Hopefully I can finish
+this up soon and move on to other work that still needs to be done.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/06/11/more-improvements-to-simplification/">More Improvements to the Simplification Method</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-11T05:59:00-05:00" pubdate data-updated="true">Jun 11<sup>th</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I was out of town for the beginning of this week, so I don&rsquo;t have as much to
+report, nevertheless in the last few days, I have made some good improvements
+to the cg_simp method, allowing it to simplify cases other than just the simple
+sums, tho it still only handles the same case as before involving the sum of .
+While it is entirely possible I&rsquo;m doing something stupid in performing all the
+checks, as far as I can tell, it works for the given case. Because the code
+itself is not yet very clear and it is not always straightforward what is
+happening, I&rsquo;ll explain what I have implemented.</p>
+
+<p>First note that for the simplifications that will be made, it is required to
+have a sum of terms. The first for loop in the method constructs two lists
+<code>cg_part</code> and <code>other_part</code>, the former consisting of all terms of the sum
+containing a CG coefficient and the latter the other terms.</p>
+
+<p>Next, we iterate over the list <code>cg_part</code>. The number of CG coefficients is
+computed, which determines which simplifications can be made (currently, the
+only implemented simplification uses terms with 1 CG coefficient in each sum
+term).  Those terms with the proper number of CG coefficients are then
+considered for the simplification. The way this will work is: based on the
+properties of the CG coefficient in the term, it will search the rest of the
+list for other terms that can be used in the simplification, and if all the
+terms exist, will simplify the terms.</p>
+
+<p>Turning to the implementation, when iterating through the list, the first thing
+to do is determine the properties of the CG coefficient terms, that is to
+extract from the term in the sum the CG coefficient itself and the numerical
+leading terms. Here it is also noted the sign of these numerical terms.</p>
+
+<p>Next, the rest of the list is checked to see if a simplification can be made
+using the determined term. To keep track of this, a list, <code>cg_index</code>, is
+initialized with <code>False</code> as the element of the list. In checking the later
+terms, we preform a similar decomposition as with the first term, that is
+splitting up the CG coefficient from the other components of the term,
+determining the CG coefficient, the leading terms and the sign of the terms. If
+the properties of these are correct, then the corresponding element of
+<code>cg_index</code> is updated with a tuple <code>(term, cg, coeff)</code> where term is the term
+in <code>cg_part</code> (so this element can be removed later), the CG coefficient and the
+leading numerical coefficient of the coefficient.</p>
+
+<p>Now, if all the elements of <code>cg_index</code> are changed, the simplification is
+preformed. When this happens, first we find the minimum coefficient of the
+chosen CG coefficients, which determines the number of times we can apply the
+simplification. Then the replacing happens; for each element in <code>cg_index</code>
+(which is a tuple) the first element of the tuple is popped off <code>cg_part</code>,
+then, if the term is not eliminated by the simplification, a new term is
+created and added to <code>cg_part</code>, and finally a constant is added to
+<code>other_part</code>, completing the simplification.</p>
+
+<p>Looking at the code, this method is very straightforward, but should be robust
+and scalable for treating cases of sums with numerical leading coefficients,
+and now that the i&rsquo;s have been dotted and the t&rsquo;s have been crossed on testing
+this method, implementing new cases should come rapidly in the next couple
+days.  However, one place where this will still need some work is in
+implementing symbolic simplification, both in dealing with symbolic leading
+terms on the CG coefficients and symbolic CG coefficients themselves. This will
+take a bit of thought and likely a bit of help to complete, but this is one
+thing I hope to work on in the next week. In addition, as the simplification
+comes into place, I&rsquo;ll work on polishing out the last of the details to get the
+classes for the Wigner3j/CG coefficients working properly.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/31/implementing-clebsch-gordan-symmetries/">Implementing Clebsch-Gordan Symmetries and Sum Properties</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-31T08:51:00-05:00" pubdate data-updated="true">May 31<sup>st</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In this first week of the GSoC project, I focused on implementing methods that
+would simplify terms with Clebsch-Gordan coefficients. This still has a long
+was to go, but I will outline what I have done so far.</p>
+
+<p>The first step was implementing means of dealing with sums of single
+coefficients. This would hopefully look something like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">Sum</span><span class="p">(</span><span class="n">GC</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">alpha</span><span class="p">),</span> <span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="o">-</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The first implementation of this used an indexing system that was able to index
+single coefficients, which could then be processed. This allowed the
+simplification function to act properly in simple numerical cases, so it could
+do things like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">cg_simp</span><span class="p">(</span><span class="n">CG</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">CG</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="n">CG</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'><span class="n">a</span><span class="o">+</span><span class="mi">3</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The problem with this implementation is doing something as simple as having one
+of the terms have a constant coefficient would break it. In addition, there
+would be no clear way to extend this to sums involving products of multiple
+Clebsch-Gordan coefficients.</p>
+
+<p>To deal with this, I started working a solution that could deal with having
+constant coefficients and products of coefficients. Currently implemented is
+method which creates list of tuples containing information about the
+Clebsch-Gordan coefficients and the leading coefficients of the Clebsch-Gordan
+coefficients. Currently, the only implemented logic is only able to deal with
+the case in that could be dealt with in the previous implementation, however,
+this should be able to expand to encompass more exotic cases.</p>
+
+<p>Another thing that was touched on this last week was treating symmetries. These
+are quite simple to implement, as they need only return new Clebsch-Gordan
+coefficients in place of old ones, just with the parameters changed in
+correspondence with the symmetry operation. The key will be using these
+symmetries to help in simplifying terms. This will be based on the development
+of better logic in the simplification method and the implementation of some
+means of determining if these symmetries can be used to apply some property of
+the Clebsch-Gordan coefficients that can simplify the expression.</p>
+
+<p>I will be out of town this next week on a vacation, and will not be able to get
+work in, but I will continue working on this when I return, with the intention
+of getting it to a state that can be pushed within the next couple weeks.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/05/25/official-gsoc-start/">Official GSoC Start</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-25T00:37:00-05:00" pubdate data-updated="true">May 25<sup>th</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This week marks the official start of the Google Summer of Code. While I
+started getting my feet wet last week after finishing the last of my finals and
+grading, the bulk of the work has just started turning out. I&rsquo;ll quick cover
+what I have from this last week and what I&rsquo;m looking to get working this week.</p>
+
+<p>Before the start, I worked out expanding the functionality of the currently
+implemented x/y/z bases, which work I have
+<a href="https://github.com/flacjacket/sympy/tree/xyz_bases">here</a>. The previous
+implementation only allowed for evaluating inner products between states in the
+same basis and representing the states in the Jz basis and then only with j=&frac12;
+states. Using the Wigner D-function, implemented with the Rotation class, I
+implemented represent to go between the x/y/z bases for any j values. Both
+<code>_eval_innerproduct</code> and <code>_rewrite_as</code> were then created to take advantage of the
+represent function to extend the functionality of the inner product and to
+implement rewrite between any bases and any arbitrary j values.</p>
+
+<p>This seems like this is some documentation and tests away from being pushed,
+but there is something buggy with the Rotation.d function, implementing the
+Wigner small d-matrix. I noticed when trying to do</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">qapply</span><span class="p">(</span><span class="n">JzBra</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">JzKet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">rewrite</span><span class="p">(</span><span class="s">&#39;Jx&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and I wasn&rsquo;t getting the right answer. As it turns out, the Rotation.d
+function, which uses Varshalovich 4.3.2 Eq 7, does not give the right answer
+for <code>Rotation.d(1,1,0,-pi/2)</code> or <code>Rotation.d(1,0,1,pi/2)</code>. Namely, there is
+something wrong with the equation that doesn&rsquo;t change the sign of the matrix
+element when reversing the sign of the beta Euler angle. Running all four
+differential representations given by Varshalovich for the small d matrix, Eq
+7-10, give the wrong result, so the derivations of these will need to be
+checked to fix this. I have a bug report up
+<a href="http://code.google.com/p/sympy/issues/detail?id=2423">here</a>.</p>
+
+<p>As for what I will be implementing this week, I already have the basics of the
+Wigner3j and CG class implemented, the work for this going up
+<a href="https://github.com/flacjacket/sympy/tree/cg_coeff">here</a>. This includes
+creating the objects, <em>some</em> of the printing functionality and numerical
+evaluation of the elements using the wigner.py functions. The meat of the class
+that I&rsquo;m currently working on is the <code>cg_simp</code> function, which will simplify
+expressions of Clebsch-Gordan coefficients. I currently have one case working,
+that is <code>Sum(CG(a,alpha,0,0,a,alpha),(alpha,-a,a)) == 2a+1</code> which is
+Varshalovich 8.7.1 Eq 1. There are still some things to smooth out with the
+implementation, but I should have that worked out a bit better, in addition to
+some more simplifications by the end of the week.</p>
+
+<p>That&rsquo;s all I have for now, watch for updates within the week as to what I&rsquo;ve
+gotten done and what I have yet to do.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/04/25/best-things-in-life-are-free-and-open/">The Best Things in Life Are Free (and Open Source)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-04-25T19:02:00-05:00" pubdate data-updated="true">Apr 25<sup>th</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Hi all,</p>
+
+<p>This adventure into blogging is to document the work I will be doing this
+summer with <a href="http://sympy.org/">SymPy</a>, an open source symbolic mathematics
+library written in Python. The project will be done as a part of the
+<a href="http://socghop.appspot.com/">Google Summer of Code</a> program. This summer, I
+will be developing a symbolic class for creating Clebsch-Gordan coefficients
+and will develop the spin algebra in the existing quantum physics module to
+utilize these coefficients. The gory details can be read in my
+<a href="https://github.com/sympy/sympy/wiki/GSoC%202011%20Application%20Sean%20Vig">application</a>.
+My mentor for this project will be Ondřej Čertík. The project officially starts
+May 24, but I&rsquo;ll be diving in once I finish up the last of my finals May
+14.  I will be documenting my progress on the project throughout the summer
+through this blog, and anyone interested in this is free to watch for
+updates once the project is underway.  All my work will be pushed to
+<a href="https://github.com/flacjacket/sympy">my SymPy fork</a> on github.</p>
+
+<p>That&rsquo;s enough for now, I&rsquo;ll be checking back in once I get started in the
+summer. Now, back to trying to graduate.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/index.html">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/02/moved-to-github-pages-here/">Moved to GitHub Pages (Here!)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/22/finishing-what-i-started/">Finishing What I Started</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/27/finalizing-arbitrary-spin-coupling/">Finalizing Arbitrary Spin Coupling</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/19/finishing-gsoc/">Finishing GSoC</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/12/getting-coupledspin-merged/">Getting Coupled_spin Merged</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Sean Vig -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

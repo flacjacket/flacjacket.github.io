@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Cleaning Up Simplification and Moving Into Coupled States - Sean Vig's 2011 GSOC Project</title>
+  <meta name="author" content="Sean Vig">
+
+  
+  <meta name="description" content="So, as I stated in my last post, the first thing I dealt with was fixing up the
+_cg_simp_add method by implementing pattern matching and move the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://flacjacket.github.io/blog/2011/07/08/cleaning-up-simplification-and-moving">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Sean Vig's 2011 GSOC Project" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<!--- MathJax Configuration -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'textarea', 'pre', 'code']
+    },
+    messageStyle: "none",
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Sean Vig's 2011 GSOC Project</a></h1>
+  
+    <h2>Developing Wigner-3nj Symbols in SymPy</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:flacjacket.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Cleaning Up Simplification and Moving Into Coupled States</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-08T21:40:00-05:00" pubdate data-updated="true">Jul 8<sup>th</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>So, as I stated in my last post, the first thing I dealt with was fixing up the
+<code>_cg_simp_add</code> method by implementing pattern matching and move the logic for
+determining if the simplification can be performed and performing the
+simplification out of the <code>_cg_simp_add</code> method and developing a system that
+can easily be expanded to include additional simplifications. To do this, I
+created another method, <code>_check_cg_simp</code>, which takes various expression to
+determine if the sum can be simplified. Using Wild variables, the method takes
+an expression which is matched to the terms of the sum. The method uses a list
+to store the terms in the sum which can be simplified, so additional
+expressions are used to determine the length of the list and the index of the
+items that are matched.  There are also additional parameters to handle the
+leading terms and the sign of the terms. There are still some issues with this
+method, as when there is more than 1 Clebsch-Gordan coefficient in the sum,
+then the leading term cannot be matched on the term.</p>
+
+<p>In addition to the finishing of this component of the Clebsch-Gordan
+coefficient simplification, I have started into working on the coupled spin
+states and the methods to rewrite them in coupled and uncoupled bases. Coupled
+spin states are set by passing j1 and j2 parameters when creating the state,
+for example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span>  <span class="n">JzKet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">j1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">j2</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="o">|</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">j1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">j2</span><span class="o">=</span><span class="mi">1</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>These states can be given in the uncoupled basis using the rewrite method and
+passing coupled=False, so:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">JzKet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">j1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">j2</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">rewrite</span><span class="p">(</span><span class="n">Jz</span><span class="p">,</span> <span class="n">coupled</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</span><span class='line'><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*|</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="o">&gt;</span><span class="n">x</span><span class="o">|</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;/</span><span class="mi">2</span><span class="o">-</span><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*|</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span><span class="n">x</span><span class="o">|</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="o">&gt;/</span><span class="mi">2</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This can also be done with a normal state and passing j1 and j2
+parameters to the rewrite method, as:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">JzKet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">rewrite</span><span class="p">(</span><span class="n">Jz</span><span class="p">,</span> <span class="n">j1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">j2</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*|</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="o">&gt;</span><span class="n">x</span><span class="o">|</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;/</span><span class="mi">2</span><span class="o">-</span><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*|</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span><span class="n">x</span><span class="o">|</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="o">&gt;/</span><span class="mi">2</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>How the coupled states will be handled by rewrite still needs to be addressed,
+but that will need some thinking and with another GSoC project doing a lot of
+changes to the represent function, it may take some coordination to get this
+and the TensorProducts of states and operators working.</p>
+
+<p>Note that in the python expressions above, the states are given as uncoupled
+states written as tensor products. Uncoupled states will be written as
+TensorProduct&rsquo;s of states, which will be extended later to spin operators,
+being written in the uncoupled basis as a TensorProduct. I&rsquo;ve just started
+playing with the uncoupled states and the various methods that will be used to
+go from uncoupled to coupled states and I&rsquo;ve been putting them in a separate
+TensorProductState class, which subclasses TensorProduct, which keeps all the
+spin logic separate from the main TensorProduct class, tho this will have to be
+expanded to include operators. Developing the logic for these uncoupled spin
+states will be the primary focus of this next week of
+coding.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Sean Vig</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-08T21:40:00-05:00" pubdate data-updated="true">Jul 8<sup>th</sup>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/gsoc/'>gsoc</a>, <a class='category' href='/blog/categories/sympy/'>sympy</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://flacjacket.github.io/blog/2011/07/08/cleaning-up-simplification-and-moving/" data-via="" data-counturl="http://flacjacket.github.io/blog/2011/07/08/cleaning-up-simplification-and-moving/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/07/02/continuing-gsoc-work/" title="Previous Post: Continuing GSoC work">&laquo; Continuing GSoC work</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/07/16/developing-coupleduncoupled-states-and/" title="Next Post: Developing coupled/uncoupled states and operators">Developing coupled/uncoupled states and operators &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/02/moved-to-github-pages-here/">Moved to GitHub Pages (Here!)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/22/finishing-what-i-started/">Finishing What I Started</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/27/finalizing-arbitrary-spin-coupling/">Finalizing Arbitrary Spin Coupling</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/19/finishing-gsoc/">Finishing GSoC</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/12/getting-coupledspin-merged/">Getting Coupled_spin Merged</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Sean Vig -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

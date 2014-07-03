@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Gsoc | Sean Vig's 2011 GSOC Project]]></title>
+  <link href="http://flacjacket.github.io/blog/categories/gsoc/atom.xml" rel="self"/>
+  <link href="http://flacjacket.github.io/"/>
+  <updated>2014-07-02T22:27:01-05:00</updated>
+  <id>http://flacjacket.github.io/</id>
+  <author>
+    <name><![CDATA[Sean Vig]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Finishing GSoC]]></title>
+    <link href="http://flacjacket.github.io/blog/2011/08/19/finishing-gsoc/"/>
+    <updated>2011-08-19T23:37:00-05:00</updated>
+    <id>http://flacjacket.github.io/blog/2011/08/19/finishing-gsoc</id>
+    <content type="html"><![CDATA[<p>So this is the last week of the GSoC program. I&rsquo;ll be writing up a full report
+on what I&rsquo;ve done over the summer
+<a href="https://github.com/sympy/sympy/wiki/GSoC-2011-Report-Sean-Vig">here</a> and it
+will be updated over this next week. This blog post will be recapping this last
+week of progress and looking forward past the GSoC.</p>
+
+<p>The main thing to report with this last week was the finishing the work on the
+spin coupling work that was laid out last week and the writing of the code for
+Coupled spin states, the last pull request I&rsquo;ll get in during the GSoC project
+is currently open and should only need a last bit of code review to get pulled.</p>
+
+<p>The main thing now is moving beyond the work that will be done during the GSoC
+project. While I&rsquo;ll be starting classes this next week and I have my qual the
+next week, so work will definitely slow down. However, this last week, I worked
+on the multi_coupling branch, which takes the coupling work that is in the
+current pull and expands it to allow for an arbitrary number of spin bases. The
+first thing to implement with this was a means of representing the coupling
+between the spin bases, since the order in which spaces are coupled matters. To
+do this, I added a jcoupling option to the functions that deal with coupled
+states. It currently seems pretty messy, but I&rsquo;m not sure of a better way to do
+it, as coupling multiple spaces will just pick up a bunch of additional quantum
+numbers that need to be represented somehow. Basically, this parameter is
+passed as a list of lists, where each element of the outermost list represents
+a coupling between two spin spaces. These inner lists have 3 elements, 2 giving
+the number of the space that is being coupled and the third being the j value
+of these spaces coupled together.  For example, if we wanted to represent a
+state $|j,m,j_1,j_2,(j_{12}),j_3\rangle$, the jcoupling would be <code>( (1,2,j12),
+)</code>. If this option is not set, then the methods default to coupling the spaces
+in numerical order, i.e. 1 and 2, then 1,2 and 3, etc.  Using this, I have been
+able to rewrite the uncouple code. The results do not yet have tests, and I&rsquo;ll
+definitely need to do some calculations by hand to make sure this is working
+properly, but looking at it, I am pretty confident in the results, tho the code
+could use some cleaning up.</p>
+
+<p>Moving forward from this would be to get the couple method working with
+arbitrary spin spaces and run through all of the functions that deal with spin
+coupling and make sure nothing is still hard coded to use two spin bases. Other
+than that, the project that I&rsquo;d set out to work on has been basically
+completed. I&rsquo;ll continue to work with and develop sympy when I have some spare
+and hopefully continue to add features and functionality to the quantum module.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Getting Coupled_spin Merged]]></title>
+    <link href="http://flacjacket.github.io/blog/2011/08/12/getting-coupledspin-merged/"/>
+    <updated>2011-08-12T20:50:00-05:00</updated>
+    <id>http://flacjacket.github.io/blog/2011/08/12/getting-coupledspin-merged</id>
+    <content type="html"><![CDATA[<p>The biggest development this week was working out what is needed to get the
+coupled_spin which implements spin coupling merged back into master. There were
+some things to clean up with non-spin modules and a few minor things to
+address, but in cleaning this up, there will be some big changes to the way
+spin coupling works. First, with respect to things that have been implemented,
+rewrite and represent will no longer handle the coupling and uncoupling of
+states. To do coupling and uncoupling, instead, a couple and uncouple method
+will be created to handle the coupling and uncoupling of states. In addition,
+coupled states will now be represented by new classes, J?KetCoupled for the
+Cartesian directions. These will be returned by rewrite when a TensorProduct is
+coupled and will return the proper vector for the coupled space when it is
+represented and can be uncoupled when an uncoupled operator acts on it.</p>
+
+<p>Most of these new changes have been implemented to varying degrees. There is
+some functionality lacking, but much of what remains for this is to implement
+tests for the new functions and make sure everything is working properly.</p>
+
+<p>The coupling of arbitrary number of spin spaces had made slow progress due to
+some ambiguity when coupled states were created using normal states, but with
+the new Coupled classes, specifying the coupling should be possible, thus
+making the computations easier.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Moving Beyond First Coupling Iteration]]></title>
+    <link href="http://flacjacket.github.io/blog/2011/08/05/moving-beyond-first-coupling-iteration/"/>
+    <updated>2011-08-05T19:00:00-05:00</updated>
+    <id>http://flacjacket.github.io/blog/2011/08/05/moving-beyond-first-coupling-iteration</id>
+    <content type="html"><![CDATA[<p>In the last week, one of the main things I did was to submit a pull request for
+the coupled spin machinery that I have been working on. This pull request can
+be seen <a href="https://github.com/sympy/sympy/pull/524">here</a>. This
+implements the coupling and uncoupling operations for states and operators and
+how these states and operators interact for coupling of two spin states. This
+pull still has some kinks to work out and some details to iron out, but should
+be finished up soon.</p>
+
+<p>Moving beyond this pull, the rest of this week has been in working on modifying
+the coupling methods developed in this pull and making them work for an
+arbitrary number of spin spaces. The current idea will be to pass a tuple of j
+values which are to be coupled instead of passing j1 and j2 parameters. While
+this would work, it would be nice to be able to define how the terms are
+coupled, noting that the order of how the spaces are coupled matter in
+determining the coefficients and what will be diagonal in the basis of the
+coupled states. The current way I am working the coupling is to couple j1 and
+j2, then couple this to j3, etc. I have currently changed the all the methods
+to accept the tuple of j values, however, the coupling and uncoupling methods
+have not been changed to accept arbitrary numbers of spaces. Most of this week
+has been thinking and trying to determine a good way to implement this
+machinery that scales to arbitrary numbers of spaces. While it is not directly
+necessary for dealing with spin states, I will likely also implement
+Wigner-6j/9j/12j coefficients in cg.py, which will be very similar to the
+Wigner-3j symbols that were implemented with the Clebsch-Gordan coefficients.</p>
+
+<p>While I am starting to work on this final component of my project, it will be a
+close call as to whether or not it can get pushed in time to make it in before
+the end of the project, which will be in just 2 weeks. The initial coupling
+stuff should get in, but this will be a much closer call. That said, I will
+definitely see this last part of the project into master.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Finishing Current Coupled Spin Work]]></title>
+    <link href="http://flacjacket.github.io/blog/2011/07/30/finishing-current-coupled-spin-work/"/>
+    <updated>2011-07-30T03:45:00-05:00</updated>
+    <id>http://flacjacket.github.io/blog/2011/07/30/finishing-current-coupled-spin-work</id>
+    <content type="html"><![CDATA[<p>This last week I made some good headway towards finishing up the coupled spin
+state work for the coupling of two spin spaces. The decision was made that
+spin states should not contain any information as to their coupling, which
+greatly simplifies not only the code, but also the allowable cases when it
+comes doing things such as applying operators, rewriting, etc. As such, I am
+very close to finalizing this stage in the coupled spin work. I will try to fix
+up the implementation for some symbolic cases that should be doable under the
+current implementation, but all the current code has tests implemented and
+docstrings in place, so a pull request will be coming up shortly.</p>
+
+<p>With this stage finishing, I will be moving on to generalizing the current
+implementation to coupling between more than two spin spaces. I will first need
+to expand cg.py to include Wigner-6j/9j/etc symbols to describe the coupling
+between these additional spaces. The logic for spin states will need to be
+reworked as well, not only to implement these new terms for coupling additional
+spin spaces, but most of the logic will need to be reworked to allow for an
+arbitrary number of coupled spin spaces.</p>
+
+<p>While the change to get rid of what would be considered a coupled spin state
+(that is a state where the state has defined the coupled spaces) does simplify
+the current implementation, it does limit what can be done. For example, an
+uncoupled operator could not be applied to a coupled state, as the coupled
+states would need to be uncoupled, which is only possible if the j values of
+the coupled states is known. However it was suggested by Brian that a new class
+be created to deal with coupled states in this sense. Time permitting, I will
+begin to look at the possibility of implementing such a feature into the
+current spin framework.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Improving Rewrite and Represent for Coupled/uncoupled States]]></title>
+    <link href="http://flacjacket.github.io/blog/2011/07/22/improving-rewrite-and-represent-for/"/>
+    <updated>2011-07-22T19:30:00-05:00</updated>
+    <id>http://flacjacket.github.io/blog/2011/07/22/improving-rewrite-and-represent-for</id>
+    <content type="html"><![CDATA[<p>This last week, most of the coding I have done has been working on getting
+represent working properly for coupled and uncoupled states. After doing a
+quick double check on what the basis vectors of a coupled or uncoupled state
+would be, I was able to get this code in. Tests for the represent logic will
+still need to be added, but so far it seems to be working properly.</p>
+
+<p>In addition, I modified the rewrite logic to implement the represent method.
+This way all of the coupling and uncoupling logic is taken care of by
+represent, just as the represent method also takes care of all rotations of
+coordinate bases. To simplify the rewrite logic, I also implemented a
+vect_to_state, which returns a linear combination of states given any state
+vector when provided with the appropriate parameters, to specify coupled or
+uncoupled and what the j1 and j2 parameters are.</p>
+
+<p>In addition to this work, I also wrote up the shell of the class that would
+handle tensor products of operators. However, in its current state, it doesn&rsquo;t
+function as one would expect, as the <code>_apply_operator_*</code> methods are not being
+called by qapply. This, in addition to noting that there is very little logic
+that is in the TensorProductState class has been making me think I can move
+most of the logic for states and operators that are uncoupled out of the spin
+class, implementing it instead in places like qapply and represent.  The only
+trick would be the uncoupled$\rightarrow$coupled logic, which is just about the only
+bit of logic that the TensorProductState class has that couldn&rsquo;t necessarily be
+generalized, and the loss of the j1/j2/m1/m2 properties. I will be trying to do
+this in the coming week, which will in turn fix the problems I am having with
+getting tensor products of states to work.</p>
+]]></content>
+  </entry>
+  
+</feed>

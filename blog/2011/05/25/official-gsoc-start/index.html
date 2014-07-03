@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Official GSoC Start - Sean Vig's 2011 GSOC Project</title>
+  <meta name="author" content="Sean Vig">
+
+  
+  <meta name="description" content="This week marks the official start of the Google Summer of Code. While I
+started getting my feet wet last week after finishing the last of my finals &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://flacjacket.github.io/blog/2011/05/25/official-gsoc-start">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Sean Vig's 2011 GSOC Project" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<!--- MathJax Configuration -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'textarea', 'pre', 'code']
+    },
+    messageStyle: "none",
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Sean Vig's 2011 GSOC Project</a></h1>
+  
+    <h2>Developing Wigner-3nj Symbols in SymPy</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:flacjacket.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Official GSoC Start</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-25T00:37:00-05:00" pubdate data-updated="true">May 25<sup>th</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This week marks the official start of the Google Summer of Code. While I
+started getting my feet wet last week after finishing the last of my finals and
+grading, the bulk of the work has just started turning out. I&rsquo;ll quick cover
+what I have from this last week and what I&rsquo;m looking to get working this week.</p>
+
+<p>Before the start, I worked out expanding the functionality of the currently
+implemented x/y/z bases, which work I have
+<a href="https://github.com/flacjacket/sympy/tree/xyz_bases">here</a>. The previous
+implementation only allowed for evaluating inner products between states in the
+same basis and representing the states in the Jz basis and then only with j=&frac12;
+states. Using the Wigner D-function, implemented with the Rotation class, I
+implemented represent to go between the x/y/z bases for any j values. Both
+<code>_eval_innerproduct</code> and <code>_rewrite_as</code> were then created to take advantage of the
+represent function to extend the functionality of the inner product and to
+implement rewrite between any bases and any arbitrary j values.</p>
+
+<p>This seems like this is some documentation and tests away from being pushed,
+but there is something buggy with the Rotation.d function, implementing the
+Wigner small d-matrix. I noticed when trying to do</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">qapply</span><span class="p">(</span><span class="n">JzBra</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">JzKet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">rewrite</span><span class="p">(</span><span class="s">&#39;Jx&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and I wasn&rsquo;t getting the right answer. As it turns out, the Rotation.d
+function, which uses Varshalovich 4.3.2 Eq 7, does not give the right answer
+for <code>Rotation.d(1,1,0,-pi/2)</code> or <code>Rotation.d(1,0,1,pi/2)</code>. Namely, there is
+something wrong with the equation that doesn&rsquo;t change the sign of the matrix
+element when reversing the sign of the beta Euler angle. Running all four
+differential representations given by Varshalovich for the small d matrix, Eq
+7-10, give the wrong result, so the derivations of these will need to be
+checked to fix this. I have a bug report up
+<a href="http://code.google.com/p/sympy/issues/detail?id=2423">here</a>.</p>
+
+<p>As for what I will be implementing this week, I already have the basics of the
+Wigner3j and CG class implemented, the work for this going up
+<a href="https://github.com/flacjacket/sympy/tree/cg_coeff">here</a>. This includes
+creating the objects, <em>some</em> of the printing functionality and numerical
+evaluation of the elements using the wigner.py functions. The meat of the class
+that I&rsquo;m currently working on is the <code>cg_simp</code> function, which will simplify
+expressions of Clebsch-Gordan coefficients. I currently have one case working,
+that is <code>Sum(CG(a,alpha,0,0,a,alpha),(alpha,-a,a)) == 2a+1</code> which is
+Varshalovich 8.7.1 Eq 1. There are still some things to smooth out with the
+implementation, but I should have that worked out a bit better, in addition to
+some more simplifications by the end of the week.</p>
+
+<p>That&rsquo;s all I have for now, watch for updates within the week as to what I&rsquo;ve
+gotten done and what I have yet to do.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Sean Vig</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-25T00:37:00-05:00" pubdate data-updated="true">May 25<sup>th</sup>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/gsoc/'>gsoc</a>, <a class='category' href='/blog/categories/sympy/'>sympy</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://flacjacket.github.io/blog/2011/05/25/official-gsoc-start/" data-via="" data-counturl="http://flacjacket.github.io/blog/2011/05/25/official-gsoc-start/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/04/25/best-things-in-life-are-free-and-open/" title="Previous Post: The best things in life are free (and open source)">&laquo; The best things in life are free (and open source)</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/05/31/implementing-clebsch-gordan-symmetries/" title="Next Post: Implementing Clebsch-Gordan symmetries and sum properties">Implementing Clebsch-Gordan symmetries and sum properties &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/02/moved-to-github-pages-here/">Moved to GitHub Pages (Here!)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/22/finishing-what-i-started/">Finishing What I Started</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/27/finalizing-arbitrary-spin-coupling/">Finalizing Arbitrary Spin Coupling</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/19/finishing-gsoc/">Finishing GSoC</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/12/getting-coupledspin-merged/">Getting Coupled_spin Merged</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Sean Vig -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

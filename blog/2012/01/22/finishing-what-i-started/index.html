@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Finishing What I Started - Sean Vig's 2011 GSOC Project</title>
+  <meta name="author" content="Sean Vig">
+
+  
+  <meta name="description" content="As of today, I&rsquo;m happy to report that my last pull request for angular momentum
+coupling was merged into master. The master branch now has the &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://flacjacket.github.io/blog/2012/01/22/finishing-what-i-started">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Sean Vig's 2011 GSOC Project" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<!--- MathJax Configuration -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'textarea', 'pre', 'code']
+    },
+    messageStyle: "none",
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Sean Vig's 2011 GSOC Project</a></h1>
+  
+    <h2>Developing Wigner-3nj Symbols in SymPy</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:flacjacket.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Finishing What I Started</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-22T00:57:00-06:00" pubdate data-updated="true">Jan 22<sup>nd</sup>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>As of today, I&rsquo;m happy to report that my last pull request for angular momentum
+coupling was merged into master. The master branch now has the capability to do
+arbitrary angular momentum coupling and uncoupling. I ended up writing a
+summary of the algorithm I used to write this, which I briefly described (or
+more accurately, brushed over) in the previous blog post, the write up for
+which is currently hosted on github
+<a href="https://github.com/flacjacket/coupling_algorithm">here</a>. This should be all of
+the big changes for the angular momentum algebra I can foresee in the near
+future.</p>
+
+<p>At this point, school is starting back up again and especially since I have
+joined a research group I won&rsquo;t be doing anything big in the near future. That
+said, I do have a couple things I&rsquo;ve started in on that I will try to finish up
+if I can get some time. First, I started working on some changes to the quantum
+printing framework. I have a pull request open for some new tests to the
+quantum printing framework, so if that can get finished up I&rsquo;ll try to work
+on getting those changes in. This was an issue that had been brought up
+before (around the time I started the GSoC project) and even the work I&rsquo;ve done
+so far, I&rsquo;ve dug up a couple issues with the printing framework. The current
+pull for the tests are <a href="https://github.com/sympy/sympy/pull/908">here</a> and the
+changes to the printing framework which are to follow are
+<a href="https://github.com/flacjacket/sympy/tree/quantum_printing">here</a>.</p>
+
+<p>In addition, over winter break, I dug into some related issues with Piecewise,
+particularly with the treatment of the otherwise parameter. Just today I opened
+a pull request for collecting feedback on the changes I made
+<a href="https://github.com/sympy/sympy/pull/1009">here</a>.</p>
+
+<p>Now that the spin stuff is finished, I&rsquo;ve been thinking about going back and
+looking at the stuff I did at the beginning of the GSoC project, particularly
+some of the stuff with CG coefficients and simplification of these terms. From
+what I remember, there should be some quick changes to make some stuff run much
+better, so if I get time, I&rsquo;ll take a look back at that.</p>
+
+<p>Last, while I am quite happy with how the current angular momentum coupling and
+uncoupling methods treat numerical cases, there&rsquo;s nothing really there for
+treating symbolic cases and any symbolic arguments cause the methods to return
+a very general summation. I put some thought into modifying the current
+algorithm to allow for some forms of symbolic coupling and uncoupling, but I
+wasn&rsquo;t able to come up with any. If I can sit down and find something that
+could do symbolic coupling and uncoupling, that would be the icing on the cake
+of the current algorithm.</p>
+
+<p>With the merging of this pull request, everything that I set out to do for my
+GSoC project last summer has been completed in some form.  There may be some
+things to refine or work on, but for the most part, I have accomplished
+everything I set out to do. Unless I make some big changes to the coupling
+algorithm, like working out something with symbolic cases, or make some other
+big change to the angular momentum algebra, this will likely be my last post
+here, at least until something else comes up that I&rsquo;d like to document.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Sean Vig</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-22T00:57:00-06:00" pubdate data-updated="true">Jan 22<sup>nd</sup>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/sympy/'>sympy</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://flacjacket.github.io/blog/2012/01/22/finishing-what-i-started/" data-via="" data-counturl="http://flacjacket.github.io/blog/2012/01/22/finishing-what-i-started/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/11/27/finalizing-arbitrary-spin-coupling/" title="Previous Post: Finalizing arbitrary spin coupling">&laquo; Finalizing arbitrary spin coupling</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/07/02/moved-to-github-pages-here/" title="Next Post: Moved to GitHub Pages (here!)">Moved to GitHub Pages (here!) &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/02/moved-to-github-pages-here/">Moved to GitHub Pages (Here!)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/22/finishing-what-i-started/">Finishing What I Started</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/27/finalizing-arbitrary-spin-coupling/">Finalizing Arbitrary Spin Coupling</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/19/finishing-gsoc/">Finishing GSoC</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/12/getting-coupledspin-merged/">Getting Coupled_spin Merged</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Sean Vig -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

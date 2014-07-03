@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>More CG Simplification and Wrapping Up X/y/z Spin Bases - Sean Vig's 2011 GSOC Project</title>
+  <meta name="author" content="Sean Vig">
+
+  
+  <meta name="description" content="For the first part of this last week, I continued on my work to get sums of
+Clebsch-Gordan coefficients to simplify. Using the same general logic &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://flacjacket.github.io/blog/2011/06/18/more-cg-simplification-and-wrapping-up">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Sean Vig's 2011 GSOC Project" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<!--- MathJax Configuration -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'textarea', 'pre', 'code']
+    },
+    messageStyle: "none",
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Sean Vig's 2011 GSOC Project</a></h1>
+  
+    <h2>Developing Wigner-3nj Symbols in SymPy</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:flacjacket.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">More CG Simplification and Wrapping Up X/y/z Spin Bases</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-18T10:17:00-05:00" pubdate data-updated="true">Jun 18<sup>th</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>For the first part of this last week, I continued on my work to get sums of
+Clebsch-Gordan coefficients to simplify. Using the same general logic that I
+outlined in the last blog entry, besides general cleaning up of the code, most
+of the work at the beginning of the week was spent on trying to develop a
+function that could check an expression for CG coefficients matching a set of
+conditions.</p>
+
+<p>The rationale behind trying to write such a method is that it would make it
+much easier to identify the times where symmetries could be utilized. With
+such a method, the process of checking for CG coefficients could be done in a
+single function and the logic for implementing CG symmetries could be handled
+in this one function. The current method uses lists of tuples to specify the
+conditions on CG coefficients. For example, if the j1 value of a CG coefficient
+needed to be =0, you could pass the tuple (&ldquo;j1&rdquo;,0), or if the m1 and m3 values
+match (&ldquo;m1&rdquo;,&ldquo;m3&rdquo;). All the conditions for each CG coefficient are combined into
+a single tuple. The current snag with simplifications of sums of products of CG
+coefficients. For example:
+$$ \sum_{\alpha,\beta} C_{\alpha\beta}^{c\gamma} C_{\alpha\beta}^{c&#8217;\gamma&#8217;}
+= \delta_{cc&#8217;} \delta_{\gamma\gamma&#8217;} $$</p>
+
+<p>While the current method would be able to check for specific values on the CG
+coefficients, I have yet to come up with a good way to check that the m1 and m2
+values are the same when they can take any value, as in this example. As it
+stands, this code still seems like quite a hack and will need some work before
+it is good to go.</p>
+
+<p>What is left with this part of the project is:</p>
+
+<ul>
+<li>Getting simplification to work with sums of products of terms (as in the example above)</li>
+<li>Applying CG symmetries to perform simplifications</li>
+<li>Simplification of symbolic CG sums</li>
+<li>Fixing up the printing of CG terms</li>
+<li>Final testing/documentation</li>
+</ul>
+
+
+<p>This part of the project has unfortunately fallen behind the preliminary
+schedule by a bit, as it was due to be finished up last week. I&rsquo;ll outline what
+I&rsquo;m currently working on finish up next, but hopefully I can finish the CG
+stuff ASAP so I can move on to working on the spin stuff which is the true meat
+of the project and try to get back on schedule.</p>
+
+<p>After meeting with my project mentor, Ondrej, on Wednesday, it was decided that
+the focus would shift to finishing up the work I&rsquo;d started on x/y/z spin bases
+and representation of spin states that I&rsquo;d started before GSoC had officially
+started.</p>
+
+<p>The first order of business was identifying an error in the Wigner small-d
+function, which is used extensively in the changing of spin bases. With Ondrej
+noting that the small-d function was defined only on a small interval and then
+me discovering the bug in the Rotation.d method, we were able to address this.
+However, no sooner had this been done than Ondrej is able to work out a better
+equation for the small-d function, which will likely replace the current
+implementation.</p>
+
+<p>Other than this, most of the work this week on the x/y/z basis representation
+was in documentation, testing and generally cleaning up the code to be pulled.
+The current pull request (my first work to be submitted since the start of
+GSoC) is still open <a href="https://github.com/sympy/sympy/pull/431">here</a>.  While
+this pull integrates the current work on basis representation, after this pull
+there is still some work that will need to be done testing both the Wigner
+small-d and the D functions, for both symbolic and numerical values, and
+ensuring they return the correct results. Because the representation code
+relies so heavily on these functions, it is imperative that these functions
+evaluate properly. Once these are fully tested, there will also likely need to
+be more tests to ensure all the representation code returns the right values
+for as many odd cases as would be necessary to test. Hopefully I can finish
+this up soon and move on to other work that still needs to be done.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Sean Vig</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-18T10:17:00-05:00" pubdate data-updated="true">Jun 18<sup>th</sup>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/gsoc/'>gsoc</a>, <a class='category' href='/blog/categories/sympy/'>sympy</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://flacjacket.github.io/blog/2011/06/18/more-cg-simplification-and-wrapping-up/" data-via="" data-counturl="http://flacjacket.github.io/blog/2011/06/18/more-cg-simplification-and-wrapping-up/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/06/11/more-improvements-to-simplification/" title="Previous Post: More improvements to the simplification method">&laquo; More improvements to the simplification method</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/06/25/transitioning-to-spin-states/" title="Next Post: Transitioning to spin states">Transitioning to spin states &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/02/moved-to-github-pages-here/">Moved to GitHub Pages (Here!)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/22/finishing-what-i-started/">Finishing What I Started</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/27/finalizing-arbitrary-spin-coupling/">Finalizing Arbitrary Spin Coupling</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/19/finishing-gsoc/">Finishing GSoC</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/12/getting-coupledspin-merged/">Getting Coupled_spin Merged</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Sean Vig -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -5,11 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>My Octopress Blog</title>
+  <title>Sean Vig's 2011 GSOC Project</title>
   <meta name="author" content="Sean Vig">
 
   
-  <meta name="description" content=" Blog Archives Recent Posts ">
+  <meta name="description" content="Well, I&rsquo;ve moved my old blog here, to my
+GitHub pages page. I&rsquo;ve done this for several
+reasons, many of which are mirrored accross the &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +23,7 @@
   <link rel="canonical" href="http://flacjacket.github.io">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+  <link href="/atom.xml" rel="alternate" title="Sean Vig's 2011 GSOC Project" type="application/atom+xml">
   <script src="/javascripts/modernizr-2.0.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
@@ -29,6 +31,22 @@
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<!--- MathJax Configuration -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'textarea', 'pre', 'code']
+    },
+    messageStyle: "none",
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
   
 
@@ -36,9 +54,9 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">My Octopress Blog</a></h1>
+  <h1><a href="/">Sean Vig's 2011 GSOC Project</a></h1>
   
-    <h2>A blogging framework for hackers.</h2>
+    <h2>Developing Wigner-3nj Symbols in SymPy</h2>
   
 </hgroup>
 
@@ -66,7 +84,689 @@
       <div class="blog-index">
   
   
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/07/02/moved-to-github-pages-here/">Moved to GitHub Pages (Here!)</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-02T22:07:25-05:00" pubdate data-updated="true">Jul 2<sup>nd</sup>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Well, I&rsquo;ve moved my <a href="https://seanvig.blogspot.com/">old blog</a> here, to my
+<a href="https://pages.github.com/">GitHub pages</a> page.  I&rsquo;ve done this for several
+reasons, many of which are mirrored accross the web, but in short, being able
+to hack at my blog generator is great.  Integration of nice Jekyll plugins to
+deal with things like syntax highlighting, being able to write in Markdown,
+easy inclusion of MathJax, being able to write blog posts in vim, the list goes
+on.  I haven&rsquo;t really done any configuration, for the most part, I dropped in
+the default <a href="http://octopress.org/">Octopress</a> configuration with minimal
+changes to get my name everywhere and imported my old blog (which included
+going in and adding Markdown syntax to all the files, ick). That stuff can all
+be pulled from the
+<a href="https://github.com/flacjacket/flacjacket.github.io/tree/source">source branch</a>
+of my pages branch.</p>
+
+<p>I realize I haven&rsquo;t done anything with this blog in a long time, but maybe I
+can put up some new stuff I&rsquo;ve been hacking on now that I&rsquo;ve got this new page.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/01/22/finishing-what-i-started/">Finishing What I Started</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-01-22T00:57:00-06:00" pubdate data-updated="true">Jan 22<sup>nd</sup>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>As of today, I&rsquo;m happy to report that my last pull request for angular momentum
+coupling was merged into master. The master branch now has the capability to do
+arbitrary angular momentum coupling and uncoupling. I ended up writing a
+summary of the algorithm I used to write this, which I briefly described (or
+more accurately, brushed over) in the previous blog post, the write up for
+which is currently hosted on github
+<a href="https://github.com/flacjacket/coupling_algorithm">here</a>. This should be all of
+the big changes for the angular momentum algebra I can foresee in the near
+future.</p>
+
+<p>At this point, school is starting back up again and especially since I have
+joined a research group I won&rsquo;t be doing anything big in the near future. That
+said, I do have a couple things I&rsquo;ve started in on that I will try to finish up
+if I can get some time. First, I started working on some changes to the quantum
+printing framework. I have a pull request open for some new tests to the
+quantum printing framework, so if that can get finished up I&rsquo;ll try to work
+on getting those changes in. This was an issue that had been brought up
+before (around the time I started the GSoC project) and even the work I&rsquo;ve done
+so far, I&rsquo;ve dug up a couple issues with the printing framework. The current
+pull for the tests are <a href="https://github.com/sympy/sympy/pull/908">here</a> and the
+changes to the printing framework which are to follow are
+<a href="https://github.com/flacjacket/sympy/tree/quantum_printing">here</a>.</p>
+
+<p>In addition, over winter break, I dug into some related issues with Piecewise,
+particularly with the treatment of the otherwise parameter. Just today I opened
+a pull request for collecting feedback on the changes I made
+<a href="https://github.com/sympy/sympy/pull/1009">here</a>.</p>
+
+<p>Now that the spin stuff is finished, I&rsquo;ve been thinking about going back and
+looking at the stuff I did at the beginning of the GSoC project, particularly
+some of the stuff with CG coefficients and simplification of these terms. From
+what I remember, there should be some quick changes to make some stuff run much
+better, so if I get time, I&rsquo;ll take a look back at that.</p>
+
+<p>Last, while I am quite happy with how the current angular momentum coupling and
+uncoupling methods treat numerical cases, there&rsquo;s nothing really there for
+treating symbolic cases and any symbolic arguments cause the methods to return
+a very general summation. I put some thought into modifying the current
+algorithm to allow for some forms of symbolic coupling and uncoupling, but I
+wasn&rsquo;t able to come up with any. If I can sit down and find something that
+could do symbolic coupling and uncoupling, that would be the icing on the cake
+of the current algorithm.</p>
+
+<p>With the merging of this pull request, everything that I set out to do for my
+GSoC project last summer has been completed in some form.  There may be some
+things to refine or work on, but for the most part, I have accomplished
+everything I set out to do. Unless I make some big changes to the coupling
+algorithm, like working out something with symbolic cases, or make some other
+big change to the angular momentum algebra, this will likely be my last post
+here, at least until something else comes up that I&rsquo;d like to document.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/11/27/finalizing-arbitrary-spin-coupling/">Finalizing Arbitrary Spin Coupling</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-11-27T23:21:00-06:00" pubdate data-updated="true">Nov 27<sup>th</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>As expected, my work with Sympy slowed drastically once school started, but
+nevertheless, I have found enough time to polish off the coupling of arbitrary
+number of spin spaces that I started over the summer. I&rsquo;ll probably wait until
+after school is done (and the initial Google Code-In traffic dies down) before
+opening a pull request, but it has neared the state of conclusion, but I will
+outline the work done on the branch <a href="https://github.com/flacjacket/sympy/tree/multi_coupled">here</a>.</p>
+
+<p>A notable change from the summer is the coupling and uncoupling code is now
+<em>much</em> cleaner. The old methods used messy <code>while True</code> loops which would
+increment some parameters and check if some end condition was reached, which I
+found very unsatisfactory and open to some weird use case throwing it into
+complete disarray. The new methods utilize the notion that any coupling or
+uncoupling will occur such that there is a well defined change in either the j
+(in the case of coupling) or m (in the case of uncoupling) values from their
+maximal values, and this change can be applied over the (un)couplings in the
+same way you can distribute n balls in m boxes, then it is just matching an
+integer to a given state and check that the given state is physically feasible.</p>
+
+<p>In addition, I have added all necessary documentation for the new functionality
+and fixed a few other minor issues with other parts of the new code. I may yet
+change some of the handling of the j_coupling parameter, but I will reevaluate
+that when I have more time to look at the code after I finish the semester.</p>
+
+<p>The passing of quantum numbers to define the couplings and un-couplings is
+still quite verbose, but I see no better way of passing the parameters,
+hopefully in review someone will see a better way of defining states and
+couplings.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/19/finishing-gsoc/">Finishing GSoC</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-19T23:37:00-05:00" pubdate data-updated="true">Aug 19<sup>th</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So this is the last week of the GSoC program. I&rsquo;ll be writing up a full report
+on what I&rsquo;ve done over the summer
+<a href="https://github.com/sympy/sympy/wiki/GSoC-2011-Report-Sean-Vig">here</a> and it
+will be updated over this next week. This blog post will be recapping this last
+week of progress and looking forward past the GSoC.</p>
+
+<p>The main thing to report with this last week was the finishing the work on the
+spin coupling work that was laid out last week and the writing of the code for
+Coupled spin states, the last pull request I&rsquo;ll get in during the GSoC project
+is currently open and should only need a last bit of code review to get pulled.</p>
+
+<p>The main thing now is moving beyond the work that will be done during the GSoC
+project. While I&rsquo;ll be starting classes this next week and I have my qual the
+next week, so work will definitely slow down. However, this last week, I worked
+on the multi_coupling branch, which takes the coupling work that is in the
+current pull and expands it to allow for an arbitrary number of spin bases. The
+first thing to implement with this was a means of representing the coupling
+between the spin bases, since the order in which spaces are coupled matters. To
+do this, I added a jcoupling option to the functions that deal with coupled
+states. It currently seems pretty messy, but I&rsquo;m not sure of a better way to do
+it, as coupling multiple spaces will just pick up a bunch of additional quantum
+numbers that need to be represented somehow. Basically, this parameter is
+passed as a list of lists, where each element of the outermost list represents
+a coupling between two spin spaces. These inner lists have 3 elements, 2 giving
+the number of the space that is being coupled and the third being the j value
+of these spaces coupled together.  For example, if we wanted to represent a
+state $|j,m,j_1,j_2,(j_{12}),j_3\rangle$, the jcoupling would be <code>( (1,2,j12),
+)</code>. If this option is not set, then the methods default to coupling the spaces
+in numerical order, i.e. 1 and 2, then 1,2 and 3, etc.  Using this, I have been
+able to rewrite the uncouple code. The results do not yet have tests, and I&rsquo;ll
+definitely need to do some calculations by hand to make sure this is working
+properly, but looking at it, I am pretty confident in the results, tho the code
+could use some cleaning up.</p>
+
+<p>Moving forward from this would be to get the couple method working with
+arbitrary spin spaces and run through all of the functions that deal with spin
+coupling and make sure nothing is still hard coded to use two spin bases. Other
+than that, the project that I&rsquo;d set out to work on has been basically
+completed. I&rsquo;ll continue to work with and develop sympy when I have some spare
+and hopefully continue to add features and functionality to the quantum module.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/12/getting-coupledspin-merged/">Getting Coupled_spin Merged</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-12T20:50:00-05:00" pubdate data-updated="true">Aug 12<sup>th</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The biggest development this week was working out what is needed to get the
+coupled_spin which implements spin coupling merged back into master. There were
+some things to clean up with non-spin modules and a few minor things to
+address, but in cleaning this up, there will be some big changes to the way
+spin coupling works. First, with respect to things that have been implemented,
+rewrite and represent will no longer handle the coupling and uncoupling of
+states. To do coupling and uncoupling, instead, a couple and uncouple method
+will be created to handle the coupling and uncoupling of states. In addition,
+coupled states will now be represented by new classes, J?KetCoupled for the
+Cartesian directions. These will be returned by rewrite when a TensorProduct is
+coupled and will return the proper vector for the coupled space when it is
+represented and can be uncoupled when an uncoupled operator acts on it.</p>
+
+<p>Most of these new changes have been implemented to varying degrees. There is
+some functionality lacking, but much of what remains for this is to implement
+tests for the new functions and make sure everything is working properly.</p>
+
+<p>The coupling of arbitrary number of spin spaces had made slow progress due to
+some ambiguity when coupled states were created using normal states, but with
+the new Coupled classes, specifying the coupling should be possible, thus
+making the computations easier.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/08/05/moving-beyond-first-coupling-iteration/">Moving Beyond First Coupling Iteration</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-05T19:00:00-05:00" pubdate data-updated="true">Aug 5<sup>th</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In the last week, one of the main things I did was to submit a pull request for
+the coupled spin machinery that I have been working on. This pull request can
+be seen <a href="https://github.com/sympy/sympy/pull/524">here</a>. This
+implements the coupling and uncoupling operations for states and operators and
+how these states and operators interact for coupling of two spin states. This
+pull still has some kinks to work out and some details to iron out, but should
+be finished up soon.</p>
+
+<p>Moving beyond this pull, the rest of this week has been in working on modifying
+the coupling methods developed in this pull and making them work for an
+arbitrary number of spin spaces. The current idea will be to pass a tuple of j
+values which are to be coupled instead of passing j1 and j2 parameters. While
+this would work, it would be nice to be able to define how the terms are
+coupled, noting that the order of how the spaces are coupled matter in
+determining the coefficients and what will be diagonal in the basis of the
+coupled states. The current way I am working the coupling is to couple j1 and
+j2, then couple this to j3, etc. I have currently changed the all the methods
+to accept the tuple of j values, however, the coupling and uncoupling methods
+have not been changed to accept arbitrary numbers of spaces. Most of this week
+has been thinking and trying to determine a good way to implement this
+machinery that scales to arbitrary numbers of spaces. While it is not directly
+necessary for dealing with spin states, I will likely also implement
+Wigner-6j/9j/12j coefficients in cg.py, which will be very similar to the
+Wigner-3j symbols that were implemented with the Clebsch-Gordan coefficients.</p>
+
+<p>While I am starting to work on this final component of my project, it will be a
+close call as to whether or not it can get pushed in time to make it in before
+the end of the project, which will be in just 2 weeks. The initial coupling
+stuff should get in, but this will be a much closer call. That said, I will
+definitely see this last part of the project into master.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/30/finishing-current-coupled-spin-work/">Finishing Current Coupled Spin Work</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-30T03:45:00-05:00" pubdate data-updated="true">Jul 30<sup>th</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This last week I made some good headway towards finishing up the coupled spin
+state work for the coupling of two spin spaces. The decision was made that
+spin states should not contain any information as to their coupling, which
+greatly simplifies not only the code, but also the allowable cases when it
+comes doing things such as applying operators, rewriting, etc. As such, I am
+very close to finalizing this stage in the coupled spin work. I will try to fix
+up the implementation for some symbolic cases that should be doable under the
+current implementation, but all the current code has tests implemented and
+docstrings in place, so a pull request will be coming up shortly.</p>
+
+<p>With this stage finishing, I will be moving on to generalizing the current
+implementation to coupling between more than two spin spaces. I will first need
+to expand cg.py to include Wigner-6j/9j/etc symbols to describe the coupling
+between these additional spaces. The logic for spin states will need to be
+reworked as well, not only to implement these new terms for coupling additional
+spin spaces, but most of the logic will need to be reworked to allow for an
+arbitrary number of coupled spin spaces.</p>
+
+<p>While the change to get rid of what would be considered a coupled spin state
+(that is a state where the state has defined the coupled spaces) does simplify
+the current implementation, it does limit what can be done. For example, an
+uncoupled operator could not be applied to a coupled state, as the coupled
+states would need to be uncoupled, which is only possible if the j values of
+the coupled states is known. However it was suggested by Brian that a new class
+be created to deal with coupled states in this sense. Time permitting, I will
+begin to look at the possibility of implementing such a feature into the
+current spin framework.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/22/improving-rewrite-and-represent-for/">Improving Rewrite and Represent for Coupled/uncoupled States</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-22T19:30:00-05:00" pubdate data-updated="true">Jul 22<sup>nd</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This last week, most of the coding I have done has been working on getting
+represent working properly for coupled and uncoupled states. After doing a
+quick double check on what the basis vectors of a coupled or uncoupled state
+would be, I was able to get this code in. Tests for the represent logic will
+still need to be added, but so far it seems to be working properly.</p>
+
+<p>In addition, I modified the rewrite logic to implement the represent method.
+This way all of the coupling and uncoupling logic is taken care of by
+represent, just as the represent method also takes care of all rotations of
+coordinate bases. To simplify the rewrite logic, I also implemented a
+vect_to_state, which returns a linear combination of states given any state
+vector when provided with the appropriate parameters, to specify coupled or
+uncoupled and what the j1 and j2 parameters are.</p>
+
+<p>In addition to this work, I also wrote up the shell of the class that would
+handle tensor products of operators. However, in its current state, it doesn&rsquo;t
+function as one would expect, as the <code>_apply_operator_*</code> methods are not being
+called by qapply. This, in addition to noting that there is very little logic
+that is in the TensorProductState class has been making me think I can move
+most of the logic for states and operators that are uncoupled out of the spin
+class, implementing it instead in places like qapply and represent.  The only
+trick would be the uncoupled$\rightarrow$coupled logic, which is just about the only
+bit of logic that the TensorProductState class has that couldn&rsquo;t necessarily be
+generalized, and the loss of the j1/j2/m1/m2 properties. I will be trying to do
+this in the coming week, which will in turn fix the problems I am having with
+getting tensor products of states to work.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/16/developing-coupleduncoupled-states-and/">Developing Coupled/uncoupled States and Operators</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-16T02:31:00-05:00" pubdate data-updated="true">Jul 16<sup>th</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Most of this last week was spent developing coupled and uncoupled states,
+beginning to develop how operators will act on these states and writing tests
+to ensure the code returns the desired result. This week I finished up writing
+the code for expressing states, and the logic for rewriting from one to the
+other and back. In addition to this, I implemented the tests which are used for
+these rewrites. This mostly finishes up the logic for the coupled/uncoupled
+states, there is still the represent logic which may need to be implemented,
+tho this will take some looking into to determine what is appropriate and
+necessary to implement.</p>
+
+<p>For the operators, using the qapply logic already in place, I have begun to
+implement how operators act on coupled and uncoupled states. I have thus far
+only implemented logic for coupled operators, that is, for example $J_z =
+J_{z_1} + J_{z_2}$ ($=J_{z_1} \otimes 1 + 1 \otimes J_{z_2}$ in an
+uncoupled representation). In addition to defining how uncoupled product states
+are acted upon by spin operators, I have expanded those already implemented
+methods to act on arbitrary states, as they had only previously been defined in
+how they act on JzKet&rsquo;s. This was done by defining a basis, such that, with the
+now improved rewrite logic, any state can be rewritten into an appropriate
+basis for the state and the state in then acted upon by the operator. I have
+begun to implement the tests that ensure the implemented logic is valid in all
+cases, both numerical and symbolic, tho this is still a work in progress.</p>
+
+<p>The focus for this next week will be continuing the development of the spin
+operators, hopefully getting to working with uncoupled spin operators, i.e.
+operators given in a tensor product to only act on one of the uncoulped states,
+and developing the tests necessary to the implementation of these states. If I
+can complete this, I will be closing in on the completion of the coupling of
+two spin spaces.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/07/08/cleaning-up-simplification-and-moving/">Cleaning Up Simplification and Moving Into Coupled States</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-08T21:40:00-05:00" pubdate data-updated="true">Jul 8<sup>th</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>So, as I stated in my last post, the first thing I dealt with was fixing up the
+<code>_cg_simp_add</code> method by implementing pattern matching and move the logic for
+determining if the simplification can be performed and performing the
+simplification out of the <code>_cg_simp_add</code> method and developing a system that
+can easily be expanded to include additional simplifications. To do this, I
+created another method, <code>_check_cg_simp</code>, which takes various expression to
+determine if the sum can be simplified. Using Wild variables, the method takes
+an expression which is matched to the terms of the sum. The method uses a list
+to store the terms in the sum which can be simplified, so additional
+expressions are used to determine the length of the list and the index of the
+items that are matched.  There are also additional parameters to handle the
+leading terms and the sign of the terms. There are still some issues with this
+method, as when there is more than 1 Clebsch-Gordan coefficient in the sum,
+then the leading term cannot be matched on the term.</p>
+
+<p>In addition to the finishing of this component of the Clebsch-Gordan
+coefficient simplification, I have started into working on the coupled spin
+states and the methods to rewrite them in coupled and uncoupled bases. Coupled
+spin states are set by passing j1 and j2 parameters when creating the state,
+for example:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span>  <span class="n">JzKet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">j1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">j2</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="o">|</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">j1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">j2</span><span class="o">=</span><span class="mi">1</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>These states can be given in the uncoupled basis using the rewrite method and
+passing coupled=False, so:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">JzKet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">j1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">j2</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">rewrite</span><span class="p">(</span><span class="n">Jz</span><span class="p">,</span> <span class="n">coupled</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</span><span class='line'><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*|</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="o">&gt;</span><span class="n">x</span><span class="o">|</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;/</span><span class="mi">2</span><span class="o">-</span><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*|</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span><span class="n">x</span><span class="o">|</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="o">&gt;/</span><span class="mi">2</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This can also be done with a normal state and passing j1 and j2
+parameters to the rewrite method, as:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="o">&gt;&gt;&gt;</span> <span class="n">JzKet</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">rewrite</span><span class="p">(</span><span class="n">Jz</span><span class="p">,</span> <span class="n">j1</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">j2</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*|</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="o">&gt;</span><span class="n">x</span><span class="o">|</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;/</span><span class="mi">2</span><span class="o">-</span><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*|</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;</span><span class="n">x</span><span class="o">|</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="o">&gt;/</span><span class="mi">2</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>How the coupled states will be handled by rewrite still needs to be addressed,
+but that will need some thinking and with another GSoC project doing a lot of
+changes to the represent function, it may take some coordination to get this
+and the TensorProducts of states and operators working.</p>
+
+<p>Note that in the python expressions above, the states are given as uncoupled
+states written as tensor products. Uncoupled states will be written as
+TensorProduct&rsquo;s of states, which will be extended later to spin operators,
+being written in the uncoupled basis as a TensorProduct. I&rsquo;ve just started
+playing with the uncoupled states and the various methods that will be used to
+go from uncoupled to coupled states and I&rsquo;ve been putting them in a separate
+TensorProductState class, which subclasses TensorProduct, which keeps all the
+spin logic separate from the main TensorProduct class, tho this will have to be
+expanded to include operators. Developing the logic for these uncoupled spin
+states will be the primary focus of this next week of
+coding.</p>
+</div>
+  
+  
+
+
+    </article>
+  
   <div class="pagination">
+    
+      <a class="prev" href="/posts/2">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -77,6 +777,26 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/02/moved-to-github-pages-here/">Moved to GitHub Pages (Here!)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/22/finishing-what-i-started/">Finishing What I Started</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/27/finalizing-arbitrary-spin-coupling/">Finalizing Arbitrary Spin Coupling</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/19/finishing-gsoc/">Finishing GSoC</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/12/getting-coupledspin-merged/">Getting Coupled_spin Merged</a>
+      </li>
     
   </ul>
 </section>

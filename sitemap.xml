@@ -2,17 +2,119 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   
+  <url>
+    <loc>http://flacjacket.github.io/blog/2014/07/02/moved-to-github-pages-here/</loc>
+    <lastmod>2014-07-02T22:07:25-05:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://flacjacket.github.io/blog/2012/01/22/finishing-what-i-started/</loc>
+    <lastmod>2012-01-22T00:57:00-06:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://flacjacket.github.io/blog/2011/11/27/finalizing-arbitrary-spin-coupling/</loc>
+    <lastmod>2011-11-27T23:21:00-06:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://flacjacket.github.io/blog/2011/08/19/finishing-gsoc/</loc>
+    <lastmod>2011-08-19T23:37:00-05:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://flacjacket.github.io/blog/2011/08/12/getting-coupledspin-merged/</loc>
+    <lastmod>2011-08-12T20:50:00-05:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://flacjacket.github.io/blog/2011/08/05/moving-beyond-first-coupling-iteration/</loc>
+    <lastmod>2011-08-05T19:00:00-05:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://flacjacket.github.io/blog/2011/07/30/finishing-current-coupled-spin-work/</loc>
+    <lastmod>2011-07-30T03:45:00-05:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://flacjacket.github.io/blog/2011/07/22/improving-rewrite-and-represent-for/</loc>
+    <lastmod>2011-07-22T19:30:00-05:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://flacjacket.github.io/blog/2011/07/16/developing-coupleduncoupled-states-and/</loc>
+    <lastmod>2011-07-16T02:31:00-05:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://flacjacket.github.io/blog/2011/07/08/cleaning-up-simplification-and-moving/</loc>
+    <lastmod>2011-07-08T21:40:00-05:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://flacjacket.github.io/blog/2011/07/02/continuing-gsoc-work/</loc>
+    <lastmod>2011-07-02T12:27:00-05:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://flacjacket.github.io/blog/2011/06/25/transitioning-to-spin-states/</loc>
+    <lastmod>2011-06-25T04:18:00-05:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://flacjacket.github.io/blog/2011/06/18/more-cg-simplification-and-wrapping-up/</loc>
+    <lastmod>2011-06-18T10:17:00-05:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://flacjacket.github.io/blog/2011/06/11/more-improvements-to-simplification/</loc>
+    <lastmod>2011-06-11T05:59:00-05:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://flacjacket.github.io/blog/2011/05/31/implementing-clebsch-gordan-symmetries/</loc>
+    <lastmod>2011-05-31T08:51:00-05:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://flacjacket.github.io/blog/2011/05/25/official-gsoc-start/</loc>
+    <lastmod>2011-05-25T00:37:00-05:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>http://flacjacket.github.io/blog/2011/04/25/best-things-in-life-are-free-and-open/</loc>
+    <lastmod>2011-04-25T19:02:00-05:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
   
   <url>
     <loc>http://flacjacket.github.io/blog/archives/</loc>
-    <lastmod>2014-07-02T20:07:37-05:00</lastmod>
+    <lastmod>2014-07-02T22:27:01-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://flacjacket.github.io/</loc>
-    <lastmod>2014-07-02T20:07:37-05:00</lastmod>
+    <lastmod>2014-07-02T22:27:01-05:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

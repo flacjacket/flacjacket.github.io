@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>More Improvements to the Simplification Method - Sean Vig's 2011 GSOC Project</title>
+  <meta name="author" content="Sean Vig">
+
+  
+  <meta name="description" content="I was out of town for the beginning of this week, so I don&rsquo;t have as much to
+report, nevertheless in the last few days, I have made some good &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://flacjacket.github.io/blog/2011/06/11/more-improvements-to-simplification">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Sean Vig's 2011 GSOC Project" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<!--- MathJax Configuration -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    jax: ["input/TeX", "output/HTML-CSS"],
+    tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$']],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'textarea', 'pre', 'code']
+    },
+    messageStyle: "none",
+    "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Sean Vig's 2011 GSOC Project</a></h1>
+  
+    <h2>Developing Wigner-3nj Symbols in SymPy</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:flacjacket.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">More Improvements to the Simplification Method</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-11T05:59:00-05:00" pubdate data-updated="true">Jun 11<sup>th</sup>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I was out of town for the beginning of this week, so I don&rsquo;t have as much to
+report, nevertheless in the last few days, I have made some good improvements
+to the cg_simp method, allowing it to simplify cases other than just the simple
+sums, tho it still only handles the same case as before involving the sum of .
+While it is entirely possible I&rsquo;m doing something stupid in performing all the
+checks, as far as I can tell, it works for the given case. Because the code
+itself is not yet very clear and it is not always straightforward what is
+happening, I&rsquo;ll explain what I have implemented.</p>
+
+<p>First note that for the simplifications that will be made, it is required to
+have a sum of terms. The first for loop in the method constructs two lists
+<code>cg_part</code> and <code>other_part</code>, the former consisting of all terms of the sum
+containing a CG coefficient and the latter the other terms.</p>
+
+<p>Next, we iterate over the list <code>cg_part</code>. The number of CG coefficients is
+computed, which determines which simplifications can be made (currently, the
+only implemented simplification uses terms with 1 CG coefficient in each sum
+term).  Those terms with the proper number of CG coefficients are then
+considered for the simplification. The way this will work is: based on the
+properties of the CG coefficient in the term, it will search the rest of the
+list for other terms that can be used in the simplification, and if all the
+terms exist, will simplify the terms.</p>
+
+<p>Turning to the implementation, when iterating through the list, the first thing
+to do is determine the properties of the CG coefficient terms, that is to
+extract from the term in the sum the CG coefficient itself and the numerical
+leading terms. Here it is also noted the sign of these numerical terms.</p>
+
+<p>Next, the rest of the list is checked to see if a simplification can be made
+using the determined term. To keep track of this, a list, <code>cg_index</code>, is
+initialized with <code>False</code> as the element of the list. In checking the later
+terms, we preform a similar decomposition as with the first term, that is
+splitting up the CG coefficient from the other components of the term,
+determining the CG coefficient, the leading terms and the sign of the terms. If
+the properties of these are correct, then the corresponding element of
+<code>cg_index</code> is updated with a tuple <code>(term, cg, coeff)</code> where term is the term
+in <code>cg_part</code> (so this element can be removed later), the CG coefficient and the
+leading numerical coefficient of the coefficient.</p>
+
+<p>Now, if all the elements of <code>cg_index</code> are changed, the simplification is
+preformed. When this happens, first we find the minimum coefficient of the
+chosen CG coefficients, which determines the number of times we can apply the
+simplification. Then the replacing happens; for each element in <code>cg_index</code>
+(which is a tuple) the first element of the tuple is popped off <code>cg_part</code>,
+then, if the term is not eliminated by the simplification, a new term is
+created and added to <code>cg_part</code>, and finally a constant is added to
+<code>other_part</code>, completing the simplification.</p>
+
+<p>Looking at the code, this method is very straightforward, but should be robust
+and scalable for treating cases of sums with numerical leading coefficients,
+and now that the i&rsquo;s have been dotted and the t&rsquo;s have been crossed on testing
+this method, implementing new cases should come rapidly in the next couple
+days.  However, one place where this will still need some work is in
+implementing symbolic simplification, both in dealing with symbolic leading
+terms on the CG coefficients and symbolic CG coefficients themselves. This will
+take a bit of thought and likely a bit of help to complete, but this is one
+thing I hope to work on in the next week. In addition, as the simplification
+comes into place, I&rsquo;ll work on polishing out the last of the details to get the
+classes for the Wigner3j/CG coefficients working properly.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Sean Vig</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-11T05:59:00-05:00" pubdate data-updated="true">Jun 11<sup>th</sup>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/gsoc/'>gsoc</a>, <a class='category' href='/blog/categories/sympy/'>sympy</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://flacjacket.github.io/blog/2011/06/11/more-improvements-to-simplification/" data-via="" data-counturl="http://flacjacket.github.io/blog/2011/06/11/more-improvements-to-simplification/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/05/31/implementing-clebsch-gordan-symmetries/" title="Previous Post: Implementing Clebsch-Gordan symmetries and sum properties">&laquo; Implementing Clebsch-Gordan symmetries and sum properties</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/06/18/more-cg-simplification-and-wrapping-up/" title="Next Post: More CG simplification and wrapping up x/y/z spin bases">More CG simplification and wrapping up x/y/z spin bases &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/02/moved-to-github-pages-here/">Moved to GitHub Pages (Here!)</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/01/22/finishing-what-i-started/">Finishing What I Started</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/11/27/finalizing-arbitrary-spin-coupling/">Finalizing Arbitrary Spin Coupling</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/19/finishing-gsoc/">Finishing GSoC</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/12/getting-coupledspin-merged/">Getting Coupled_spin Merged</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Sean Vig -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

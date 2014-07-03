@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Sympy | Sean Vig's 2011 GSOC Project]]></title>
+  <link href="http://flacjacket.github.io/blog/categories/sympy/atom.xml" rel="self"/>
+  <link href="http://flacjacket.github.io/"/>
+  <updated>2014-07-02T22:27:01-05:00</updated>
+  <id>http://flacjacket.github.io/</id>
+  <author>
+    <name><![CDATA[Sean Vig]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Finishing What I Started]]></title>
+    <link href="http://flacjacket.github.io/blog/2012/01/22/finishing-what-i-started/"/>
+    <updated>2012-01-22T00:57:00-06:00</updated>
+    <id>http://flacjacket.github.io/blog/2012/01/22/finishing-what-i-started</id>
+    <content type="html"><![CDATA[<p>As of today, I&rsquo;m happy to report that my last pull request for angular momentum
+coupling was merged into master. The master branch now has the capability to do
+arbitrary angular momentum coupling and uncoupling. I ended up writing a
+summary of the algorithm I used to write this, which I briefly described (or
+more accurately, brushed over) in the previous blog post, the write up for
+which is currently hosted on github
+<a href="https://github.com/flacjacket/coupling_algorithm">here</a>. This should be all of
+the big changes for the angular momentum algebra I can foresee in the near
+future.</p>
+
+<p>At this point, school is starting back up again and especially since I have
+joined a research group I won&rsquo;t be doing anything big in the near future. That
+said, I do have a couple things I&rsquo;ve started in on that I will try to finish up
+if I can get some time. First, I started working on some changes to the quantum
+printing framework. I have a pull request open for some new tests to the
+quantum printing framework, so if that can get finished up I&rsquo;ll try to work
+on getting those changes in. This was an issue that had been brought up
+before (around the time I started the GSoC project) and even the work I&rsquo;ve done
+so far, I&rsquo;ve dug up a couple issues with the printing framework. The current
+pull for the tests are <a href="https://github.com/sympy/sympy/pull/908">here</a> and the
+changes to the printing framework which are to follow are
+<a href="https://github.com/flacjacket/sympy/tree/quantum_printing">here</a>.</p>
+
+<p>In addition, over winter break, I dug into some related issues with Piecewise,
+particularly with the treatment of the otherwise parameter. Just today I opened
+a pull request for collecting feedback on the changes I made
+<a href="https://github.com/sympy/sympy/pull/1009">here</a>.</p>
+
+<p>Now that the spin stuff is finished, I&rsquo;ve been thinking about going back and
+looking at the stuff I did at the beginning of the GSoC project, particularly
+some of the stuff with CG coefficients and simplification of these terms. From
+what I remember, there should be some quick changes to make some stuff run much
+better, so if I get time, I&rsquo;ll take a look back at that.</p>
+
+<p>Last, while I am quite happy with how the current angular momentum coupling and
+uncoupling methods treat numerical cases, there&rsquo;s nothing really there for
+treating symbolic cases and any symbolic arguments cause the methods to return
+a very general summation. I put some thought into modifying the current
+algorithm to allow for some forms of symbolic coupling and uncoupling, but I
+wasn&rsquo;t able to come up with any. If I can sit down and find something that
+could do symbolic coupling and uncoupling, that would be the icing on the cake
+of the current algorithm.</p>
+
+<p>With the merging of this pull request, everything that I set out to do for my
+GSoC project last summer has been completed in some form.  There may be some
+things to refine or work on, but for the most part, I have accomplished
+everything I set out to do. Unless I make some big changes to the coupling
+algorithm, like working out something with symbolic cases, or make some other
+big change to the angular momentum algebra, this will likely be my last post
+here, at least until something else comes up that I&rsquo;d like to document.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Finalizing Arbitrary Spin Coupling]]></title>
+    <link href="http://flacjacket.github.io/blog/2011/11/27/finalizing-arbitrary-spin-coupling/"/>
+    <updated>2011-11-27T23:21:00-06:00</updated>
+    <id>http://flacjacket.github.io/blog/2011/11/27/finalizing-arbitrary-spin-coupling</id>
+    <content type="html"><![CDATA[<p>As expected, my work with Sympy slowed drastically once school started, but
+nevertheless, I have found enough time to polish off the coupling of arbitrary
+number of spin spaces that I started over the summer. I&rsquo;ll probably wait until
+after school is done (and the initial Google Code-In traffic dies down) before
+opening a pull request, but it has neared the state of conclusion, but I will
+outline the work done on the branch <a href="https://github.com/flacjacket/sympy/tree/multi_coupled">here</a>.</p>
+
+<p>A notable change from the summer is the coupling and uncoupling code is now
+<em>much</em> cleaner. The old methods used messy <code>while True</code> loops which would
+increment some parameters and check if some end condition was reached, which I
+found very unsatisfactory and open to some weird use case throwing it into
+complete disarray. The new methods utilize the notion that any coupling or
+uncoupling will occur such that there is a well defined change in either the j
+(in the case of coupling) or m (in the case of uncoupling) values from their
+maximal values, and this change can be applied over the (un)couplings in the
+same way you can distribute n balls in m boxes, then it is just matching an
+integer to a given state and check that the given state is physically feasible.</p>
+
+<p>In addition, I have added all necessary documentation for the new functionality
+and fixed a few other minor issues with other parts of the new code. I may yet
+change some of the handling of the j_coupling parameter, but I will reevaluate
+that when I have more time to look at the code after I finish the semester.</p>
+
+<p>The passing of quantum numbers to define the couplings and un-couplings is
+still quite verbose, but I see no better way of passing the parameters,
+hopefully in review someone will see a better way of defining states and
+couplings.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Finishing GSoC]]></title>
+    <link href="http://flacjacket.github.io/blog/2011/08/19/finishing-gsoc/"/>
+    <updated>2011-08-19T23:37:00-05:00</updated>
+    <id>http://flacjacket.github.io/blog/2011/08/19/finishing-gsoc</id>
+    <content type="html"><![CDATA[<p>So this is the last week of the GSoC program. I&rsquo;ll be writing up a full report
+on what I&rsquo;ve done over the summer
+<a href="https://github.com/sympy/sympy/wiki/GSoC-2011-Report-Sean-Vig">here</a> and it
+will be updated over this next week. This blog post will be recapping this last
+week of progress and looking forward past the GSoC.</p>
+
+<p>The main thing to report with this last week was the finishing the work on the
+spin coupling work that was laid out last week and the writing of the code for
+Coupled spin states, the last pull request I&rsquo;ll get in during the GSoC project
+is currently open and should only need a last bit of code review to get pulled.</p>
+
+<p>The main thing now is moving beyond the work that will be done during the GSoC
+project. While I&rsquo;ll be starting classes this next week and I have my qual the
+next week, so work will definitely slow down. However, this last week, I worked
+on the multi_coupling branch, which takes the coupling work that is in the
+current pull and expands it to allow for an arbitrary number of spin bases. The
+first thing to implement with this was a means of representing the coupling
+between the spin bases, since the order in which spaces are coupled matters. To
+do this, I added a jcoupling option to the functions that deal with coupled
+states. It currently seems pretty messy, but I&rsquo;m not sure of a better way to do
+it, as coupling multiple spaces will just pick up a bunch of additional quantum
+numbers that need to be represented somehow. Basically, this parameter is
+passed as a list of lists, where each element of the outermost list represents
+a coupling between two spin spaces. These inner lists have 3 elements, 2 giving
+the number of the space that is being coupled and the third being the j value
+of these spaces coupled together.  For example, if we wanted to represent a
+state $|j,m,j_1,j_2,(j_{12}),j_3\rangle$, the jcoupling would be <code>( (1,2,j12),
+)</code>. If this option is not set, then the methods default to coupling the spaces
+in numerical order, i.e. 1 and 2, then 1,2 and 3, etc.  Using this, I have been
+able to rewrite the uncouple code. The results do not yet have tests, and I&rsquo;ll
+definitely need to do some calculations by hand to make sure this is working
+properly, but looking at it, I am pretty confident in the results, tho the code
+could use some cleaning up.</p>
+
+<p>Moving forward from this would be to get the couple method working with
+arbitrary spin spaces and run through all of the functions that deal with spin
+coupling and make sure nothing is still hard coded to use two spin bases. Other
+than that, the project that I&rsquo;d set out to work on has been basically
+completed. I&rsquo;ll continue to work with and develop sympy when I have some spare
+and hopefully continue to add features and functionality to the quantum module.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Getting Coupled_spin Merged]]></title>
+    <link href="http://flacjacket.github.io/blog/2011/08/12/getting-coupledspin-merged/"/>
+    <updated>2011-08-12T20:50:00-05:00</updated>
+    <id>http://flacjacket.github.io/blog/2011/08/12/getting-coupledspin-merged</id>
+    <content type="html"><![CDATA[<p>The biggest development this week was working out what is needed to get the
+coupled_spin which implements spin coupling merged back into master. There were
+some things to clean up with non-spin modules and a few minor things to
+address, but in cleaning this up, there will be some big changes to the way
+spin coupling works. First, with respect to things that have been implemented,
+rewrite and represent will no longer handle the coupling and uncoupling of
+states. To do coupling and uncoupling, instead, a couple and uncouple method
+will be created to handle the coupling and uncoupling of states. In addition,
+coupled states will now be represented by new classes, J?KetCoupled for the
+Cartesian directions. These will be returned by rewrite when a TensorProduct is
+coupled and will return the proper vector for the coupled space when it is
+represented and can be uncoupled when an uncoupled operator acts on it.</p>
+
+<p>Most of these new changes have been implemented to varying degrees. There is
+some functionality lacking, but much of what remains for this is to implement
+tests for the new functions and make sure everything is working properly.</p>
+
+<p>The coupling of arbitrary number of spin spaces had made slow progress due to
+some ambiguity when coupled states were created using normal states, but with
+the new Coupled classes, specifying the coupling should be possible, thus
+making the computations easier.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Moving Beyond First Coupling Iteration]]></title>
+    <link href="http://flacjacket.github.io/blog/2011/08/05/moving-beyond-first-coupling-iteration/"/>
+    <updated>2011-08-05T19:00:00-05:00</updated>
+    <id>http://flacjacket.github.io/blog/2011/08/05/moving-beyond-first-coupling-iteration</id>
+    <content type="html"><![CDATA[<p>In the last week, one of the main things I did was to submit a pull request for
+the coupled spin machinery that I have been working on. This pull request can
+be seen <a href="https://github.com/sympy/sympy/pull/524">here</a>. This
+implements the coupling and uncoupling operations for states and operators and
+how these states and operators interact for coupling of two spin states. This
+pull still has some kinks to work out and some details to iron out, but should
+be finished up soon.</p>
+
+<p>Moving beyond this pull, the rest of this week has been in working on modifying
+the coupling methods developed in this pull and making them work for an
+arbitrary number of spin spaces. The current idea will be to pass a tuple of j
+values which are to be coupled instead of passing j1 and j2 parameters. While
+this would work, it would be nice to be able to define how the terms are
+coupled, noting that the order of how the spaces are coupled matter in
+determining the coefficients and what will be diagonal in the basis of the
+coupled states. The current way I am working the coupling is to couple j1 and
+j2, then couple this to j3, etc. I have currently changed the all the methods
+to accept the tuple of j values, however, the coupling and uncoupling methods
+have not been changed to accept arbitrary numbers of spaces. Most of this week
+has been thinking and trying to determine a good way to implement this
+machinery that scales to arbitrary numbers of spaces. While it is not directly
+necessary for dealing with spin states, I will likely also implement
+Wigner-6j/9j/12j coefficients in cg.py, which will be very similar to the
+Wigner-3j symbols that were implemented with the Clebsch-Gordan coefficients.</p>
+
+<p>While I am starting to work on this final component of my project, it will be a
+close call as to whether or not it can get pushed in time to make it in before
+the end of the project, which will be in just 2 weeks. The initial coupling
+stuff should get in, but this will be a much closer call. That said, I will
+definitely see this last part of the project into master.</p>
+]]></content>
+  </entry>
+  
+</feed>
