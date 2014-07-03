@@ -2,10 +2,10 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://yoursite.com
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+url: http://flacjacket.github.io
+title: Sean Vig's 2011 GSOC Project
+subtitle: Developing Wigner-3nj Symbols in SymPy
+author: Sean Vig
 simple_search: https://www.google.com/search
 description:
 
